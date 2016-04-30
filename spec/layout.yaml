@@ -1,0 +1,30 @@
+mc-sdf-1:
+    meta:
+        format: 1.0
+        author: smilechaser
+        name: tiny example square
+    cells:
+        - cell:
+            materials:
+             - dirt:
+               quantity: _
+             - sandstone
+            structure:
+             - context:
+                material: _
+                facing: _
+                x: x
+                y: y
+                z: z
+                items:
+                 - block:
+                    x: 0
+                    y: 0
+                    z: 0
+                 - 1,0,0,dirt,N
+                 - 2,0,0,dirt
+                 - 0,0,1,dirt
+                 - 0,0,2,dirt
+                 - 2,0,1,dirt
+                 - 2,0,2,dirt
+

@@ -1,0 +1,19 @@
+mc-sdf-1:
+    meta:
+        format: 1.0
+        name: tiny example square
+    cells:
+        - cell:
+            materials:
+             - dirt:
+            structure:
+             - context:
+                items:
+                 - 0,0,0
+                 - 1,0,0
+                 - 2,0,0
+                 - 0,0,1
+                 - 0,0,2
+                 - 2,0,1
+                 - 2,0,2
+
