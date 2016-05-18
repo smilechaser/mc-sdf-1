@@ -1,0 +1,3 @@
+[submodule "code/rcon_client/minecraft-tools"]
+	path = code/rcon_client/minecraft-tools
+	url = https://github.com/smilechaser/minecraft-tools.git

@@ -1,30 +1,41 @@
 mc-sdf-1:
+    version: 1.0
     meta:
-        format: 1.0
         author: smilechaser
         name: tiny example square
+        description: this is a very basic example to show to document structure
     cells:
         - cell:
+            notes: _
+            meta: # user-supplied key/value pairs
+             - x: y
+             - foo: bar
             materials:
              - dirt:
                quantity: _
              - sandstone
             structure:
              - context:
-                material: _
-                facing: _
+                values: _ # block entity data
+                meta: # user-supplied key/value pairs
+                 - x: y
+                 - foo: bar
+                operation: [destroy, keep, replace]
+                material: _ # material i.e. gravel, dirt, wool.red, wood.oak
                 x: x
                 y: y
                 z: z
+                facing: [N,E,W,S,U,D,O] # cardinal directions plus UP, DOWN, and OTHER
+                item_suffix: _ # type (and implied order) of attribs that appear after x,y,z in tuple format
                 items:
+                 # "block" is the default structure for item records
                  - block:
                     x: 0
                     y: 0
                     z: 0
-                 - 1,0,0,dirt,N
-                 - 2,0,0,dirt
-                 - 0,0,1,dirt
-                 - 0,0,2,dirt
-                 - 2,0,1,dirt
-                 - 2,0,2,dirt
-
+                 - 1,0,0 # "tuple format" for convenience
+                 - 2,0,0
+                 - 0,0,1
+                 - 0,0,2
+                 - 2,0,1
+                 - 2,0,2
