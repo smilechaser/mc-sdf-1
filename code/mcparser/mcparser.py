@@ -175,6 +175,23 @@ class Facing(Enum):
     Up = 5
     Down = 6
 
+    @classmethod
+    def resolve(clz, value):
+
+        SHORTHAND_MAP = {
+            'N': clz.North,
+            'E': clz.East,
+            'S': clz.South,
+            'W': clz.West,
+            'U': clz.Up,
+            'D': clz.Down
+        }
+
+        try:
+            return SHORTHAND_MAP[value]
+        except KeyError:
+            return clz[value]
+
 
 class Context:
 
@@ -251,13 +268,14 @@ class Item:
             self.suffix_values = suffix.parse(remainder[0].strip())
 
     def __str__(self):
-        return '<{}.{} object at 0x{:x} (x={}, y={}, z={})>'.format(
+        return '<{}.{} object at 0x{:x} (x={}, y={}, z={}, facing={})>'.format(
             self.__module__,
             self.__class__.__name__,
             id(self),
             self.x,
             self.y,
-            self.z
+            self.z,
+            self.facing
         )
 
 
@@ -319,7 +337,7 @@ class GeneratorContext:
     x = 0
     y = 0
     z = 0
-    facing = None
+    _facing = None
     material = None
     operation = None
     values = []
@@ -365,6 +383,19 @@ class GeneratorContext:
         retval.item_suffix = self.item_suffix
 
         return retval
+
+    @property
+    def facing(self):
+        return self._facing
+
+    @facing.setter
+    def facing(self, val):
+
+        if val is None:
+            self._facing = None
+            return
+
+        self._facing = Facing.resolve(val)
 
     def to_dict(self):
 
@@ -421,11 +452,21 @@ class ParseGenerator:
 
         self.parser = parser
 
+        self.x_offset = 0
+        self.y_offset = 0
+        self.z_offset = 0
+
     def generate(self):
 
         gencons = []
 
-        gencons.append(GeneratorContext())
+        gc = GeneratorContext()
+
+        gc.x = self.x_offset
+        gc.y = self.y_offset
+        gc.z = self.z_offset
+
+        gencons.append(gc)
 
         for cell in self.parser.cells:
 
@@ -436,3 +477,5 @@ class ParseGenerator:
                 for item in context.items:
 
                     yield GeneratorItem.construct(gencons[-1], item)
+
+                gencons.pop()

@@ -2,7 +2,7 @@ import os
 import unittest
 import yaml
 
-from parser import (
+from mcparser import (
     Parser,
     ParseGenerator,
     BadDocumentException,
