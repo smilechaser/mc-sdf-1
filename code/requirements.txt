@@ -1,1 +1,1 @@
-PyYAML==3.11
+pyyaml==4.2b4
